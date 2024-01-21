@@ -14,8 +14,8 @@ class WalmartSpider(scrapy.Spider):
         keyword_list = ['laptop']
         for keyword in keyword_list:
             payload = {'q': keyword, 'sort': 'best_seller', 'page': 1, 'affinityOverride': 'default'}
-            walmart_search_url = 'https://www.walmart.com/search?' + urlencode(payload)
-            #walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
+            #walmart_search_url = 'https://www.walmart.com/search?' + urlencode(payload)
+            walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
             yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1})
 
     def parse_search_results(self, response):
