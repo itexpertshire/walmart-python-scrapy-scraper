@@ -20,10 +20,9 @@ SCRAPEOPS_API_KEY = 'YOUR API KEY'
 SCRAPEOPS_PROXY_ENABLED = True
 
 
-ITEM_PIPELINES = {
-   'walmart_scrapper.pipelines.WalmartScraperPipeline': 300,
-   
-}
+#ITEM_PIPELINES = {
+#   'walmart_scrapper.pipelines.WalmartScraperPipeline': 300,   
+#}
 
 # Add In The ScrapeOps Monitoring Extension
 EXTENSIONS = {
