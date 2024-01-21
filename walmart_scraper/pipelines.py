@@ -32,7 +32,7 @@ class WalmartScraperPipeline:
             url  TEXT,
             current_price REAL,
             original_price REAL,
-            currency_unit TEXT,             
+            currency_unit TEXT             
         )
         """)
 
