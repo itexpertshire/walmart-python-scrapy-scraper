@@ -1,10 +1,20 @@
 # walmart-python-scrapy-scraper
 
+How to run:
+
+```unix
+
+scrapy crawl walmart
+
+```
+
+# walmart-python-scrapy-scraper
+
 To use  install the scrapy:
 
 ```python
 
-pip install scrapy scrapeops-scrapy-proxy-sdk scrapeops-scrapy
+pip install scrapy scrapeops-scrapy-proxy-sdk scrapeops-scrapy sqlite-web
 
 ```
 
@@ -26,6 +36,9 @@ These scrapers extract the following fields from Walmart product pages:
 The following article goes through in detail how this Walmart spider was developed, which you can use to understand the spiders and edit them for your own use case.
 
 [Python Scrapy: Build A Walmart.com Scraper](https://scrapeops.io/python-scrapy-playbook/python-scrapy-walmart-scraper/)
+# View Srapped data using sql lite web browser
+
+sqlite_web -p 7887 /path/to/database.db
 
 ## ScrapeOps Proxy
 This Walmart spider uses [ScrapeOps Proxy](https://scrapeops.io/proxy-aggregator/) as the proxy solution. ScrapeOps has a free plan that allows you to make up to 1,000 requests per month which makes it ideal for the development phase, but can be easily scaled up to millions of pages per month if needs be.

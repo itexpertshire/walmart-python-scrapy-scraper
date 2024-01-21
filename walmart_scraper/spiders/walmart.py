@@ -6,16 +6,17 @@ from urllib.parse import urlencode
 class WalmartSpider(scrapy.Spider):
     name = "walmart"
 
-    custom_settings = {
-        'FEEDS': { 'data/%(name)s_%(time)s.csv': { 'format': 'csv',}}
-        }
+    #custom_settings = {
+    #    'FEEDS': { 'data/%(name)s_%(time)s.csv': { 'format': 'csv',}}
+    #    }
 
     def start_requests(self):
         keyword_list = ['laptop']
         for keyword in keyword_list:
-            payload = {'q': keyword, 'sort': 'best_seller', 'page': 1, 'affinityOverride': 'default'}
-            #walmart_search_url = 'https://www.walmart.com/search?' + urlencode(payload)
-            walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
+            #payload = {'q': keyword, 'sort': 'best_seller', 'page': 1, 'affinityOverride': 'default'}
+            payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only', 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
+            walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
+            #walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
             yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1})
 
     def parse_search_results(self, response):
@@ -36,7 +37,7 @@ class WalmartSpider(scrapy.Spider):
                 total_product_count = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["count"]
                 max_pages = math.ceil(total_product_count / 40)
                 if max_pages > 5:
-                    max_pages = 5
+                    max_pages = 1
                 for p in range(2, max_pages):
                     payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
                     walmart_search_url = 'https://www.walmart.com/search?' + urlencode(payload)
@@ -48,6 +49,7 @@ class WalmartSpider(scrapy.Spider):
         if script_tag is not None:
             json_blob = json.loads(script_tag)
             raw_product_data = json_blob["props"]["pageProps"]["initialData"]["data"]["product"]
+            print(raw_product_data)
             yield {
                 'keyword': response.meta['keyword'],
                 'page': response.meta['page'],
@@ -61,6 +63,7 @@ class WalmartSpider(scrapy.Spider):
                 'shortDescription':  raw_product_data.get('shortDescription'),
                 'thumbnailUrl':  raw_product_data['imageInfo'].get('thumbnailUrl'),
                 'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
+                'wasPrice':  raw_product_data['priceInfo']['wasPrice'].get('price'), 
                 'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
             }
 
