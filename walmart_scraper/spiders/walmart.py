@@ -49,22 +49,41 @@ class WalmartSpider(scrapy.Spider):
         if script_tag is not None:
             json_blob = json.loads(script_tag)
             raw_product_data = json_blob["props"]["pageProps"]["initialData"]["data"]["product"]
-            print(raw_product_data)
-            yield {
-                'keyword': response.meta['keyword'],
-                'page': response.meta['page'],
-                'position': response.meta['position'],
-                'id':  raw_product_data.get('id'),
-                'type':  raw_product_data.get('type'),
-                'name':  raw_product_data.get('name'),
-                'brand':  raw_product_data.get('brand'),
-                'averageRating':  raw_product_data.get('averageRating'),
-                'manufacturerName':  raw_product_data.get('manufacturerName'),
-                'shortDescription':  raw_product_data.get('shortDescription'),
-                'thumbnailUrl':  raw_product_data['imageInfo'].get('thumbnailUrl'),
-                'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
-                'wasPrice':  raw_product_data['priceInfo']['wasPrice'].get('price',default="0"), 
-                'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
-            }
+            #print(raw_product_data)
+            if (hasattr(raw_product_data['priceInfo']['wasPrice'], 'get')):
+                yield {
+                    'keyword': response.meta['keyword'],
+                    'page': response.meta['page'],
+                    'position': response.meta['position'],
+                    'id':  raw_product_data.get('id'),
+                    'type':  raw_product_data.get('type'),
+                    'name':  raw_product_data.get('name'),
+                    'brand':  raw_product_data.get('brand'),
+                    'averageRating':  raw_product_data.get('averageRating'),
+                    'manufacturerName':  raw_product_data.get('manufacturerName'),
+                    'shortDescription':  raw_product_data.get('shortDescription'),
+                    'thumbnailUrl':  raw_product_data['imageInfo'].get('thumbnailUrl'),
+                    'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
+                    'wasPrice':  raw_product_data['priceInfo']['wasPrice'].get('price'), 
+                    'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
+                }
+            else:
+                yield {
+                    'keyword': response.meta['keyword'],
+                    'page': response.meta['page'],
+                    'position': response.meta['position'],
+                    'id':  raw_product_data.get('id'),
+                    'type':  raw_product_data.get('type'),
+                    'name':  raw_product_data.get('name'),
+                    'brand':  raw_product_data.get('brand'),
+                    'averageRating':  raw_product_data.get('averageRating'),
+                    'manufacturerName':  raw_product_data.get('manufacturerName'),
+                    'shortDescription':  raw_product_data.get('shortDescription'),
+                    'thumbnailUrl':  raw_product_data['imageInfo'].get('thumbnailUrl'),
+                    'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
+                    'wasPrice':  "0", 
+                    'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
+                }
+
 
 
