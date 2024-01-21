@@ -1,4 +1,13 @@
 # walmart-python-scrapy-scraper
+
+To use  install the scrapy:
+
+```python
+
+pip install scrapy scrapeops-scrapy-proxy-sdk scrapeops-scrapy
+
+```
+
 Python Scrapy spider that scrapes product data from [Walmart.com](https://www.walmart.com/). 
 
 These scrapers extract the following fields from Walmart product pages:

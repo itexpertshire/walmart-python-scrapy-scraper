@@ -15,7 +15,7 @@ NEWSPIDER_MODULE = 'walmart_scraper.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-SCRAPEOPS_API_KEY = 'YOUR_API_KEY'
+SCRAPEOPS_API_KEY = 'YOUR API KEY'
 
 SCRAPEOPS_PROXY_ENABLED = True
 
