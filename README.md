@@ -37,8 +37,9 @@ The following article goes through in detail how this Walmart spider was develop
 
 [Python Scrapy: Build A Walmart.com Scraper](https://scrapeops.io/python-scrapy-playbook/python-scrapy-walmart-scraper/)
 # View Srapped data using sql lite web browser
+https://github.com/coleifer/sqlite-web
 
-sqlite_web -p 7887 /path/to/database.db
+sqlite_web -p 7887 --host=0.0.0.0 price.db
 
 ## ScrapeOps Proxy
 This Walmart spider uses [ScrapeOps Proxy](https://scrapeops.io/proxy-aggregator/) as the proxy solution. ScrapeOps has a free plan that allows you to make up to 1,000 requests per month which makes it ideal for the development phase, but can be easily scaled up to millions of pages per month if needs be.

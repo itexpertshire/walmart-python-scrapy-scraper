@@ -12,16 +12,19 @@ class WalmartSpider(scrapy.Spider):
 
     def start_requests(self):
         keyword_list = ['laptop']
+        cateory_list = ['Networking Cables & Connectors','Lenses','Routers']
+        cat_param='||category:'.join(cateory_list)
         for keyword in keyword_list:
             #payload = {'q': keyword, 'sort': 'best_seller', 'page': 1, 'affinityOverride': 'default'}
-            payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only', 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
+            payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only'+cat_param, 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
             walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
             #walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
-            yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1})
+            yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1, 'cat_param': cat_param})
 
     def parse_search_results(self, response):
         page = response.meta['page']
         keyword = response.meta['keyword'] 
+        cat_param = response.meta['cat_param']
         script_tag  = response.xpath('//script[@id="__NEXT_DATA__"]/text()').get()
         if script_tag is not None:
             json_blob = json.loads(script_tag)
@@ -30,7 +33,7 @@ class WalmartSpider(scrapy.Spider):
             product_list = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["items"]
             for idx, product in enumerate(product_list):
                 walmart_product_url = 'https://www.walmart.com' + product.get('canonicalUrl', '').split('?')[0]
-                yield scrapy.Request(url=walmart_product_url, callback=self.parse_product_data, meta={'keyword': keyword, 'page': page, 'position': idx + 1})
+                yield scrapy.Request(url=walmart_product_url, callback=self.parse_product_data, meta={'keyword': keyword,'cat_param': cat_param, 'page': page, 'position': idx + 1})
             
             ## Request Next Page
             if page == 1:
@@ -39,9 +42,10 @@ class WalmartSpider(scrapy.Spider):
                 if max_pages > 5:
                     max_pages = 1
                 for p in range(2, max_pages):
-                    payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
-                    walmart_search_url = 'https://www.walmart.com/search?' + urlencode(payload)
-                    yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': p})
+                    #payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
+                    payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only'+cat_param, 'sort': 'price_low', 'page': p, 'affinityOverride': 'default'}
+                    walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
+                    yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword,'cat_param': cat_param, 'page': p})
     
 
     def parse_product_data(self, response):
