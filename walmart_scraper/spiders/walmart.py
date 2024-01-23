@@ -22,7 +22,7 @@ class WalmartSpider(scrapy.Spider):
             payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only'+cat_param, 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
             walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
             #walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
-            yield SeleniumRequest(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1, 'cat_param': cat_param})
+            yield SeleniumRequest(url=walmart_search_url, callback=self.parse_search_results, wait_time=10,meta={'keyword': keyword, 'page': 1, 'cat_param': cat_param})
 
     def parse_search_results(self, response):
         page = response.meta['page']
@@ -36,7 +36,7 @@ class WalmartSpider(scrapy.Spider):
             product_list = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["items"]
             for idx, product in enumerate(product_list):
                 walmart_product_url = 'https://www.walmart.com' + product.get('canonicalUrl', '').split('?')[0]
-                yield SeleniumRequest(url=walmart_product_url, callback=self.parse_product_data, meta={'keyword': keyword,'cat_param': cat_param, 'page': page, 'position': idx + 1})
+                yield SeleniumRequest(url=walmart_product_url, callback=self.parse_product_data, wait_time=10, meta={'keyword': keyword,'cat_param': cat_param, 'page': page, 'position': idx + 1})
             
             ## Request Next Page
             if page == 1:
@@ -48,7 +48,7 @@ class WalmartSpider(scrapy.Spider):
                     #payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
                     payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only'+cat_param, 'sort': 'price_low', 'page': p, 'affinityOverride': 'default'}
                     walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
-                    yield SeleniumRequest(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword,'cat_param': cat_param, 'page': p})
+                    yield SeleniumRequest(url=walmart_search_url, callback=self.parse_search_results, wait_time=10, meta={'keyword': keyword,'cat_param': cat_param, 'page': p})
     
 
     def parse_product_data(self, response):
