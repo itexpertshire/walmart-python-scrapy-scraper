@@ -6,6 +6,11 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+from shutil import which
+SELENIUM_DRIVER_NAME = 'chrome'
+SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
+SELENIUM_DRIVER_ARGUMENTS=['-headless','start-maximized']  # '--headless' if using chrome instead of firefox
+
 
 BOT_NAME = 'walmart_scraper'
 
@@ -17,7 +22,7 @@ ROBOTSTXT_OBEY = False
 
 SCRAPEOPS_API_KEY = 'YOUR API KEY'
 
-SCRAPEOPS_PROXY_ENABLED = True
+SCRAPEOPS_PROXY_ENABLED = False
 
 
 #ITEM_PIPELINES = {
@@ -35,9 +40,9 @@ DOWNLOADER_MIDDLEWARES = {
     ## ScrapeOps Monitor
     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-    
+    'walmart_scraper.scrapy_seleniumstealth.SeleniumMiddleware': 800
     ## Proxy Middleware
-    'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
+    #'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
 }
 
 # Max Concurrency On ScrapeOps Proxy Free Plan is 1 thread
