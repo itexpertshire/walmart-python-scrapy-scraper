@@ -9,7 +9,7 @@
 from shutil import which
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
-SELENIUM_DRIVER_ARGUMENTS=['-headless','start-maximized']  # '--headless' if using chrome instead of firefox
+SELENIUM_DRIVER_ARGUMENTS=['-headless','start-maximized','--disable-blink-features=AutomationControlled','--disable-blink-features']  # '--headless' if using chrome instead of firefox
 
 
 BOT_NAME = 'walmart_scraper'
