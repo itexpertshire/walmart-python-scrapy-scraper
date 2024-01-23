@@ -1,9 +1,8 @@
 import json
 import math, random
-from scrapy_selenium import SeleniumRequest
 import scrapy
 from urllib.parse import urlencode
-
+from scrapy_selenium import SeleniumRequest
 
 class WalmartSpider(scrapy.Spider):
     name = "walmart"
