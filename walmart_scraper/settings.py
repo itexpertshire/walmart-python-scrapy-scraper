@@ -40,7 +40,7 @@ DOWNLOADER_MIDDLEWARES = {
     ## ScrapeOps Monitor
     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-    #'scrapy_selenium.SeleniumMiddleware': 725,
+    'scrapy_selenium.SeleniumMiddleware': 725,
     ## Proxy Middleware
     #'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
 }
