@@ -1,5 +1,5 @@
 import json
-import math, random
+import math, random,time
 import scrapy
 from urllib.parse import urlencode
 from scrapy_selenium import SeleniumRequest
@@ -35,6 +35,7 @@ class WalmartSpider(scrapy.Spider):
             ## Request Product Page
             product_list = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["items"]
             for idx, product in enumerate(product_list):
+                time.sleep(30)
                 walmart_product_url = 'https://www.walmart.com' + product.get('canonicalUrl', '').split('?')[0]
                 yield SeleniumRequest(url=walmart_product_url, callback=self.parse_product_data, wait_time=10, meta={'keyword': keyword,'cat_param': cat_param, 'page': page, 'position': idx + 1})
             
