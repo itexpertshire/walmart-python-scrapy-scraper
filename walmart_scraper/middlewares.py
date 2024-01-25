@@ -90,8 +90,7 @@ class ImpersonateDownloaderMiddleware:
                 encoding=resp.encoding,
                 status=resp.status_code,
                 body=resp.content,
-                request=request,
-                meta=request.meta
+                request=request
             )
         return responses
 
