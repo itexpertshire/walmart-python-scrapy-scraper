@@ -6,10 +6,12 @@
 from scrapy import signals
 from curl_cffi import requests as r
 from scrapy.http import HtmlResponse
+import time,random
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+borwtype=['chrome99','chrome100','chrome101','chrome104','chrome107','chrome110','edge99','edge101','safari15_3','safari15_5']
 
 class DemoSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -80,14 +82,16 @@ class ImpersonateDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
+        time.sleep(10)
         # Notice the impersonate parameter
-        resp = r.get(request.url, impersonate="chrome110")
+        resp = r.get(request.url, impersonate=borwtype[random.randint(1, len(borwtype) - 1)])
         responses = HtmlResponse(
                 resp.url,
                 encoding=resp.encoding,
                 status=resp.status_code,
                 body=resp.content,
-                request=request
+                request=request,
+                meta=request.meta
             )
         return responses
 
