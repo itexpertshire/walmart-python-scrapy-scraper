@@ -14,9 +14,11 @@ To use  install the scrapy:
 
 ```python
 
-pip install scrapy scrapeops-scrapy-proxy-sdk scrapeops-scrapy sqlite-web
+pip install scrapy curl_cffi sqlite-web scrapeops-scrapy
+pip install curl_cffi --upgrade
 
 ```
+Used https://github.com/yifeikong/curl_cffi to bypass robot detection by walmart site
 
 Python Scrapy spider that scrapes product data from [Walmart.com](https://www.walmart.com/). 
 
