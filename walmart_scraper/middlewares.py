@@ -86,7 +86,6 @@ class ImpersonateDownloaderMiddleware:
                 resp.url,
                 encoding=resp.encoding,
                 status=resp.status_code,
-                headers=resp.headers,
                 body=resp.content,
                 request=request
             )
