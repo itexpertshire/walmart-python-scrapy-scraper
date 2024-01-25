@@ -84,7 +84,7 @@ class ImpersonateDownloaderMiddleware:
         resp = r.get(request.url, impersonate="chrome110")
         print("response-")
         print(resp.content)
-        responses= scrapy.Response(url=resp.url,status=resp.status_code,headers=resp.headers,body=resp.content,request=request)
+        responses= scrapy.http.Response(url=resp.url,status=resp.status_code,headers=resp.headers,body=resp.content,request=request)
         return responses
 
     def process_response(self, request, response, spider):
