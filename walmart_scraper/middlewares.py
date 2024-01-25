@@ -5,6 +5,7 @@
 
 from scrapy import signals
 from curl_cffi import requests as r
+import scrapy
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -83,7 +84,7 @@ class ImpersonateDownloaderMiddleware:
         resp = r.get(request.url, impersonate="chrome110")
         print("response-")
         print(resp.content)
-        responses= response(url=resp.url,status=resp.status_code,headers=resp.headers,body=resp.content,request=request)
+        responses= scrapy.Response(url=resp.url,status=resp.status_code,headers=resp.headers,body=resp.content,request=request)
         return responses
 
     def process_response(self, request, response, spider):
