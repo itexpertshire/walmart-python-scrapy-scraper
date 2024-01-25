@@ -22,7 +22,7 @@ SCRAPEOPS_PROXY_ENABLED = False
 
 
 ITEM_PIPELINES = {
-  'walmart_scrapper.pipelines.WalmartScraperPipeline': 300,   
+  'walmart_scraper.pipelines.WalmartScraperPipeline': 300,   
 }
 
 # Add In The ScrapeOps Monitoring Extension
