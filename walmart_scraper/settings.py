@@ -26,16 +26,16 @@ ITEM_PIPELINES = {
 }
 
 # Add In The ScrapeOps Monitoring Extension
-EXTENSIONS = {
-'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
-}
+#EXTENSIONS = {
+#'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
+#}
 
 
 DOWNLOADER_MIDDLEWARES = {
 
     ## ScrapeOps Monitor
-    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
-    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+    #'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+    #'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
     'walmart_scraper.middlewares.ImpersonateDownloaderMiddleware': 543,
     ## Proxy Middleware
     #'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
