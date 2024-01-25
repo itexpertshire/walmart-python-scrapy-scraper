@@ -81,6 +81,8 @@ class ImpersonateDownloaderMiddleware:
         #   installed downloader middleware will be called
         # Notice the impersonate parameter
         response = requests.get(request.url, impersonate="chrome110")
+        print("response-")
+        print(response)
         return response
 
     def process_response(self, request, response, spider):
