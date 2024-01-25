@@ -4,7 +4,7 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-from curl_cffi import requests
+from curl_cffi import requests as r
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -80,10 +80,11 @@ class ImpersonateDownloaderMiddleware:
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
         # Notice the impersonate parameter
-        response = requests.get(request.url, impersonate="chrome110")
+        resp = r.get(request.url, impersonate="chrome110")
         print("response-")
-        print(response)
-        return response
+        print(resp.content)
+        responses= scrapy.http.Response(url=resp.url,status=resp.status_code,headers=resp.headers,body=resp.content,request=request)
+        return responses
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
