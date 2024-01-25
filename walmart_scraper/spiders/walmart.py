@@ -44,7 +44,7 @@ class WalmartSpider(scrapy.Spider):
                 total_product_count = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["count"]
                 max_pages = math.ceil(total_product_count / 40)
                 if max_pages > 5:
-                    max_pages = 1
+                    max_pages = 5
                 for p in range(2, max_pages):
                     #payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
                     payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only'+cat_param, 'sort': 'price_low', 'page': p, 'affinityOverride': 'default'}
