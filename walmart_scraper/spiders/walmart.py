@@ -73,6 +73,7 @@ class WalmartSpider(scrapy.Spider):
                     'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
                     'wasPrice':  raw_product_data['priceInfo']['wasPrice'].get('price'), 
                     'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
+                    'imageUrl':  raw_product_data['imageInfo']['allImages'][0].get('url'), 
                 }
             else:
                 yield {
@@ -90,6 +91,7 @@ class WalmartSpider(scrapy.Spider):
                     'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
                     'wasPrice':  "0", 
                     'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
+                    'imageUrl':  raw_product_data['imageInfo']['allImages'][0].get('url'), 
                 }
 
 

@@ -32,7 +32,8 @@ class WalmartScraperPipeline:
             url  TEXT,
             current_price REAL,
             original_price REAL,
-            currency_unit TEXT             
+            currency_unit TEXT,
+            image_url TEXT             
         )
         """)
 
@@ -50,7 +51,7 @@ class WalmartScraperPipeline:
 
             ## Define insert statement
             self.cur.execute("""
-                INSERT INTO price (keyword, page, position,id , type, name, brand, average_rating, manufacturer, short_description, url, current_price, original_price, currency_unit) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?)
+                INSERT INTO price (keyword, page, position,id , type, name, brand, average_rating, manufacturer, short_description, url, current_price, original_price, currency_unit,image_url) VALUES (?, ?, ?,?, ?, ?,?, ?, ?,?, ?, ?,?,?,?)
             """,
             (
                 str(item['keyword']),
@@ -66,7 +67,8 @@ class WalmartScraperPipeline:
                 str(item['thumbnailUrl']),
                 str(item['price']),
                  str(item['wasPrice']),
-                str(item['currencyUnit'])
+                str(item['currencyUnit']),
+                str(item['imageUrl'])
             ))
 
             ## Execute insert of data into database
