@@ -21,7 +21,7 @@ class WalmartSpider(scrapy.Spider):
         with open(dirname+'/url_list.json') as fd:
             url_data = json.load(fd)
             #print(url_data)
-            for url in url_data.urls:
+            for url in url_data.get("urls"):
                 print(url.get("url"))
                 print(url.get("payload"))
         sys.exit(0)
