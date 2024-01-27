@@ -1,4 +1,4 @@
-import json,sys
+import json,sys,os
 import math, random,time
 import scrapy
 from urllib.parse import urlencode
@@ -15,8 +15,10 @@ class WalmartSpider(scrapy.Spider):
     def start_requests(self):
         keyword_list = ['laptop']
         url_data=None
+        dirname=os.path.dirname(__file__)
+        print('dirname:     ', dirname)
         #Load urls list
-        with open('url_list.json') as fd:
+        with open(dirname+'/url_list.json') as fd:
             url_data = json.load(fd)
             #print(url_data)
             for url in url_data.urls:
