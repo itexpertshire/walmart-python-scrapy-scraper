@@ -48,7 +48,7 @@ class WalmartSpider(scrapy.Spider):
 
             ## Request Product Page
             product_list = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["items"]
-            print("product_list:"+len(product_list))
+            print("product_list:"+str(len(product_list)))
             for idx, product in enumerate(product_list):
                 time.sleep(30)
                 walmart_product_url = 'https://www.walmart.com' + product.get('canonicalUrl', '').split('?')[0]
