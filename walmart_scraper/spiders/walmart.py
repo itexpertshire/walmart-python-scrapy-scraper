@@ -43,6 +43,7 @@ class WalmartSpider(scrapy.Spider):
         keyword = response.meta['keyword'] 
         cat_param = response.meta['cat_param']
         script_tag  = response.xpath('//script[@id="__NEXT_DATA__"]/text()').get()
+        print(response.url)
         if script_tag is not None:
             json_blob = json.loads(script_tag)
 
