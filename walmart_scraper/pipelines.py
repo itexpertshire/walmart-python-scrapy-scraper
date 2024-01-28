@@ -81,7 +81,7 @@ class WalmartScraperPipeline:
                 str(item['averageRating']),
                 str(item['manufacturerName']),
                 str(item['shortDescription']),
-                str(item['thumbnailUrl']),
+                str("https://www.walmart.com"+item['canonicalUrl']),
                 str(item['price']),
                  str(item['wasPrice']),
                 str(item['currencyUnit']),

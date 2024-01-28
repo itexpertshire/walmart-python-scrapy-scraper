@@ -24,7 +24,7 @@ class WalmartSpider(scrapy.Spider):
             for url in url_data.get("urls"):
                 print(url.get("url"))
                 print(url.get("payload"))
-        sys.exit(0)
+        return
         cateory_list = ['Networking Cables & Connectors','Lenses','Routers']
         cat_param='||category:'.join(cateory_list)
         for keyword in keyword_list:
@@ -81,7 +81,7 @@ class WalmartSpider(scrapy.Spider):
                     'averageRating':  raw_product_data.get('averageRating'),
                     'manufacturerName':  raw_product_data.get('manufacturerName'),
                     'shortDescription':  raw_product_data.get('shortDescription'),
-                    'thumbnailUrl':  raw_product_data['imageInfo'].get('thumbnailUrl'),
+                    'canonicalUrl':  raw_product_data.get('canonicalUrl'),
                     'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
                     'wasPrice':  raw_product_data['priceInfo']['wasPrice'].get('price'), 
                     'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
@@ -99,7 +99,7 @@ class WalmartSpider(scrapy.Spider):
                     'averageRating':  raw_product_data.get('averageRating'),
                     'manufacturerName':  raw_product_data.get('manufacturerName'),
                     'shortDescription':  raw_product_data.get('shortDescription'),
-                    'thumbnailUrl':  raw_product_data['imageInfo'].get('thumbnailUrl'),
+                    'canonicalUrl':  raw_product_data.get('canonicalUrl'),
                     'price':  raw_product_data['priceInfo']['currentPrice'].get('price'), 
                     'wasPrice':  "0", 
                     'currencyUnit':  raw_product_data['priceInfo']['currentPrice'].get('currencyUnit'),  
