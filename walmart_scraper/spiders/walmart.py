@@ -24,15 +24,18 @@ class WalmartSpider(scrapy.Spider):
             for url in url_data.get("urls"):
                 print(url.get("url"))
                 print(url.get("payload"))
-        return
+        #return
         cateory_list = ['Networking Cables & Connectors','Lenses','Routers']
         cat_param='||category:'.join(cateory_list)
-        for keyword in keyword_list:
+        for url in url_data.get("urls"):
             #payload = {'q': keyword, 'sort': 'best_seller', 'page': 1, 'affinityOverride': 'default'}
             #payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only'+cat_param, 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
-            payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only', 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
-            walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
+            #payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only', 'sort': 'price_low', 'page': 1, 'affinityOverride': 'default'}
+            #walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
             #walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
+            keyword=url.get("urlid")
+            payload=url.get("payload")
+            walmart_search_url=url.get("url")
             yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1, 'cat_param': cat_param})
 
     def parse_search_results(self, response):
