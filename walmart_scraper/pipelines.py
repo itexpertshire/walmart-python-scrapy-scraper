@@ -16,7 +16,7 @@ class WalmartScraperPipeline:
         dirname=os.path.dirname(__file__)
         with open(dirname+'/spiders/exception_list.json', 'rb', 0) as file:
             self.exclusion_list = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
-
+        print(self.exclusion_list)
         ## Create/Connect to database
         self.con = sqlite3.connect('price.db')
 
@@ -48,7 +48,8 @@ class WalmartScraperPipeline:
 
     def process_item(self, item, spider):
         ##If product type excluded then ignore processing item
-        if self.exclusion_list.find(str.encode(item['type'])) == -1:
+        print(self.exclusion_list.find(str.encode(item['type'])))
+        if self.exclusion_list.find(str.encode(item['type'])) != -1:
             return item
         ## Check to see if text is already in database 
         self.cur.execute("select * from price where id = ?", (item['id'],))
