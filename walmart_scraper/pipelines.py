@@ -16,10 +16,6 @@ class WalmartScraperPipeline:
         dirname=os.path.dirname(__file__)
         with open(dirname+'/spiders/exception_list.json', 'rb', 0) as file:
             self.exclusion_list = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
-            
-            as s:
-            if s.find(b'blabla') != -1:
-                print('true')
 
         ## Create/Connect to database
         self.con = sqlite3.connect('price.db')
