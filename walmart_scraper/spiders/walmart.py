@@ -47,8 +47,8 @@ class WalmartSpider(scrapy.Spider):
             json_blob = json.loads(script_tag)
 
             ## Request Product Page
-            print(json_blob)
             product_list = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["items"]
+            print("product_list:"+len(product_list))
             for idx, product in enumerate(product_list):
                 time.sleep(30)
                 walmart_product_url = 'https://www.walmart.com' + product.get('canonicalUrl', '').split('?')[0]
@@ -64,6 +64,7 @@ class WalmartSpider(scrapy.Spider):
                     #payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
                     payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only', 'sort': 'price_low', 'page': p, 'affinityOverride': 'default'}
                     walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
+                    print("Trying Next Page - "+walmart_search_url)
                     yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results,  meta={'keyword': keyword,'cat_param': cat_param, 'page': p})
     
 
