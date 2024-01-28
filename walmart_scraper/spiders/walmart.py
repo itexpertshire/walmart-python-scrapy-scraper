@@ -47,6 +47,7 @@ class WalmartSpider(scrapy.Spider):
             json_blob = json.loads(script_tag)
 
             ## Request Product Page
+            print(json_blob)
             product_list = json_blob["props"]["pageProps"]["initialData"]["searchResult"]["itemStacks"][0]["items"]
             for idx, product in enumerate(product_list):
                 time.sleep(30)
