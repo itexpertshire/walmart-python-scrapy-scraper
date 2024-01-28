@@ -8,9 +8,19 @@
 from itemadapter import ItemAdapter
 import sqlite3
 from datetime import datetime
+import mmap,os
 
 class WalmartScraperPipeline:
     def __init__(self):
+        ##Load string exclusion list
+        dirname=os.path.dirname(__file__)
+        with open(dirname+'/spiders/exception_list.json', 'rb', 0) as file:
+            self.exclusion_list = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
+            
+            as s:
+            if s.find(b'blabla') != -1:
+                print('true')
+
         ## Create/Connect to database
         self.con = sqlite3.connect('price.db')
 
@@ -41,6 +51,9 @@ class WalmartScraperPipeline:
         """)
 
     def process_item(self, item, spider):
+        ##If product type excluded then ignore processing item
+        if self.exclusion_list.find(str.encode(item['type'])) == -1:
+            return item
         ## Check to see if text is already in database 
         self.cur.execute("select * from price where id = ?", (item['id'],))
         result = self.cur.fetchone()
