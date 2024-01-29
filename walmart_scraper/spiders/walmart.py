@@ -31,7 +31,7 @@ class WalmartSpider(scrapy.Spider):
             #walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
             #walmart_search_url = 'https://www.walmart.com/browse/3944?min_price=0&max_price=5&facet=exclude_oos%3AShow+available+items+only&sort=price_low&page=1'
             keyword=url.get("urlid")
-            payload=str(url.get("payload"))
+            payload=json.load(url.get("payload"))
             print(payload)
             walmart_search_url=url.get("url")+ str(urlencode(payload))
             yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1, 'payload': payload})
