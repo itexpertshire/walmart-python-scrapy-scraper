@@ -51,7 +51,7 @@ class WalmartSpider(scrapy.Spider):
             for idx, product in enumerate(product_list):
                 time.sleep(30)
                 walmart_product_url = 'https://www.walmart.com' + product.get('canonicalUrl', '').split('?')[0]
-                yield scrapy.Request(url=walmart_product_url, callback=self.parse_product_data,  meta={'keyword': keyword,'cat_param': cat_param, 'page': page, 'position': idx + 1})
+                yield scrapy.Request(url=walmart_product_url, callback=self.parse_product_data,  meta={'keyword': keyword,'payload': payload, 'page': page, 'position': idx + 1})
             
             ## Request Next Page
             if page == 1:
