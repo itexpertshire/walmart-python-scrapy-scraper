@@ -33,7 +33,7 @@ class WalmartSpider(scrapy.Spider):
             keyword=url.get("urlid")
             payload=url.get("payload")
             print(payload)
-            walmart_search_url=url.get("url")+ urlencode(json.loads(payload))
+            walmart_search_url=url.get("url")+ urlencode(payload)
             yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results, meta={'keyword': keyword, 'page': 1, 'payload': payload})
 
     def parse_search_results(self, response):
@@ -62,7 +62,7 @@ class WalmartSpider(scrapy.Spider):
                 for p in range(2, max_pages):
                     #payload = {'q': keyword, 'sort': 'best_seller', 'page': p, 'affinityOverride': 'default'}
                     #payload = {'max_price': 5, 'facet': 'exclude_oos%3AShow+available+items+only', 'sort': 'price_low', 'page': p, 'affinityOverride': 'default'}
-                    walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(json.loads(payload))
+                    walmart_search_url = 'https://www.walmart.com/browse/3944?' + urlencode(payload)
                     #print("Trying Next Page - "+walmart_search_url)
                     yield scrapy.Request(url=walmart_search_url, callback=self.parse_search_results,  meta={'keyword': keyword,'payload': payload, 'page': p})
     
