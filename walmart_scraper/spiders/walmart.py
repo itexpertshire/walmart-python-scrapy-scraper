@@ -77,12 +77,12 @@ class WalmartSpider(scrapy.Spider):
             #If product title contains any filter words, then don't process the item
             filter_words = response.meta['filter_words']
             print(raw_product_data.get('name'))
-            print(len(filter_words))
+            print(len(filter_words[0]))
             if raw_product_data.get('name') is not None:
                 # Getting string with substring
                 # using filter() + lambda
                 res = list(filter(lambda x: x in raw_product_data.get('name'), filter_words))
-                if (len(res) ==0 or len(filter_words) == 0):
+                if (len(res) ==0 or len(filter_words[0]) == 0):
                     #print(raw_product_data)
                     if (hasattr(raw_product_data['priceInfo']['wasPrice'], 'get')):
                         yield {
