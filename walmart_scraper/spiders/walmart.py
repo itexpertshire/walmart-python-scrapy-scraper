@@ -80,7 +80,7 @@ class WalmartSpider(scrapy.Spider):
                 # Getting string with substring
                 # using filter() + lambda
                 res = list(filter(lambda x: x in raw_product_data.get('name'), filter_words))
-                if len(res) ==0:
+                if (len(res) ==0 or len(filter_words) == 0):
                     #print(raw_product_data)
                     if (hasattr(raw_product_data['priceInfo']['wasPrice'], 'get')):
                         yield {
