@@ -76,6 +76,8 @@ class WalmartSpider(scrapy.Spider):
             raw_product_data = json_blob["props"]["pageProps"]["initialData"]["data"]["product"]
             #If product title contains any filter words, then don't process the item
             filter_words = response.meta['filter_words']
+            print(raw_product_data.get('name'))
+            print(len(filter_words))
             if raw_product_data.get('name') is not None:
                 # Getting string with substring
                 # using filter() + lambda
