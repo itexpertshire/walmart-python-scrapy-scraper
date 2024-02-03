@@ -1,8 +1,19 @@
 {
-    "urls": [{"urlid":"3",
-              "url":"https://www.walmart.com/browse/3944?",
-              "payload": {"max_price": 5, "sort": "price_low", "page": 1, "affinityOverride": "default"},
-              "filter_words":[""]
-            }
+    "urls": [
+      {"urlid":"1",
+        "url":"https://www.walmart.com/search?q=apple+airpods+2nd+generation&",
+        "payload": {"typeahead":"apple+airpods+2nd","min_price": 20,"max_price": 72, "facet": "brand:Apple", "sort": "price_low", "page": 1, "affinityOverride": "default"},
+        "filter_words":["Left","Right","Replacements"]
+     }
+  ,{"urlid":"2",
+      "url":"https://www.walmart.com/browse/electronics/apple-watch/3944_1229722_1890925_1696849_3378550?",
+      "payload": {"max_price": 100, "facet": "brand:Apple", "page": 1, "affinityOverride": "default"},
+      "filter_words":["Apple Watch Band"]
+    }
+   ,{"urlid":"3",
+      "url":"https://www.walmart.com/browse/3944?",
+      "payload": {"max_price": 5, "sort": "price_low", "page": 1, "affinityOverride": "default"},
+      "filter_words":[""]            
+    }
     ]
 }
